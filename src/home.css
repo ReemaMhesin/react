@@ -1,0 +1,47 @@
+
+@import "@font/nunito";
+
+:root {
+  --fontWeight-nunito-light: 300;
+  --fontWeight-nunito-regular: 400;
+  --fontWeight-nunito-bold: 700;
+  --fontFamily-nunito: 'Nunito', sans-serif;
+}
+
+
+
+.container-fluid{
+    background-color: white;
+}
+
+.reema{
+    font-family:var(--fontFamily-nunito)!important;
+}
+
+.imgDiv{
+    height:25rem;
+    width:580px;
+}
+
+.homePage{
+    font-family:var(--fontFamily-nunito)!important;
+}
+
+
+.container>.row>div>.row>div{
+    justify-content: center;
+}
+
+@media only screen and (max-width:440px){
+    .imgDiv{
+        height:16rem;
+        width:345px;
+    }
+
+    .flags{
+    margin-right: 10px;
+}
+.container>.row>div>.row>div{
+    justify-content: center;
+}
+}
