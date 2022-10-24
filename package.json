@@ -1,8 +1,7 @@
 {
   "name": "reemareact",
   "version": "0.1.0",
-  "homepage": "https://ReemaMuhesin.github.io/assignments",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -26,8 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -54,6 +52,4 @@
   "devDependencies": {
     "gh-pages": "^4.0.0"
   }
-
-
 }
