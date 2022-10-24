@@ -19,7 +19,7 @@ import DetailsPage from './DetailsPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={window.location.pathname || ''}>
 <Routes>
 
 
