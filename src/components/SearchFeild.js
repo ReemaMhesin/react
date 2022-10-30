@@ -9,13 +9,11 @@ import "@fontsource/nunito";
 const Search = styled('div')(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: 'white',
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
     boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
     display: 'flex',
     alignItems: 'center',
-    padding:'8px',
-    //justifyContent: 'left',
+    padding:'7px',
+    height:'50px',
     [theme.breakpoints.up('sm')]: {
       width: '400px',
     },
@@ -39,17 +37,18 @@ const Search = styled('div')(({ theme }) => ({
   }));
 
   const responsivePaper = {
-    width: { xs: "100%", sm: "400px", md: "400px" }
+    width: { xs: "100%", sm: "400px", md: "400px" },
+    marginBottom:{xs:5,md:0,},
   };
 
-export default function SearchFeild() {
+export default function SearchFeild({placehoderValue}) {
   return (
           <Search sx={responsivePaper}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search for a country..."
+              placeholder={placehoderValue}
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>

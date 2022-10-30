@@ -14,7 +14,7 @@
     background-color: white;
 }
 
-.reema{
+.detailsPage{
     font-family:var(--fontFamily-nunito)!important;
 }
 
@@ -34,8 +34,8 @@
 
 @media only screen and (max-width:440px){
     .imgDiv{
-        height:16rem;
-        width:345px;
+        height:15rem;
+        width:340px;
     }
 
     .flags{

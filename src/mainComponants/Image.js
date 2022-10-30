@@ -9,10 +9,10 @@ const Myimg = styled('img')(() => ({
     
    }));
 
-function FlagImg() {
+function Image({value}) {
     return (
-        <Myimg class="pe-sm-1 " src={mainFlag} alt="flag"/>
+        <Myimg  src={value} alt="flag"/>
     );
 }
 
-export default FlagImg;
+export default Image;

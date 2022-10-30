@@ -1,56 +1,44 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-// import IconButton from '@mui/material/IconButton';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import "@fontsource/nunito";
-import { createTheme, ThemeProvider} from '@mui/material/styles';
-import "typeface-cormorant";
-
-const theme = createTheme({
-    typography: {
-      fontFamily: [
-        'Nunito',
-        'sans-serif',
-      ].join(','),
-      
-   },
-});
+import {experimental_sx as sx,} from '@mui/system';
+import Label from '../mainComponants/Label';
+import BasicButton from '../mainComponants/BasicButton';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 
 
-const MyButton = styled(Button)(() => ({
-   color:'black',
-  }));
+  const MyBox = styled(Box)(
+    sx({
+      display: 'flex',
+      justifyContent: 'space-between',
+      paddingTop:2, paddingBottom:2,paddingLeft:7,paddingRight:7,
+      background:'white',
+      boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+        }),
+  );
 
-//   const TheTypography = styled(Typography)(() => ({
-//     fontSize: '20px',
-//    fontWeight: '800',
-//    }));
- 
+   const responsiveBox = {
+    paddingLeft:{xs:0,md:7,},
+    paddingRight:{xs:0,md:7,},
+ };
 
  
-   const responsiveTypography = {
-     fontSize: { xs: "19px", sm: "22px", md: "22px", lg:"22px"},
-     fontWeight: { xs: "800", sm: "800", md: "800", lg:"800"},
-    };
-  
  
-    const responsiveButton = {
-      fontSize: { xs: "10px", sm: "12px", md: "12px", lg:"12px"},
-      fontWeight: { xs: "400", sm: "400", md: "400", lg:"400"},
-   };
 
-export default function TopBar() {
+ const responsiveButton = {
+   fontSize: { xs: "10px", sm: "12px", md: "12px", lg:"12px"},
+   fontWeight: { xs: "400", sm: "400", md: "400", lg:"400"},
+   marginRight:3,
+};
+
+export default function TopBar({text,button}) {
   return (
-  <div class="container d-flex justify-content-between align-items-center py-3 ">
-    <ThemeProvider theme={theme}>
-        <Typography sx={responsiveTypography}>
-          Where in the world?
-          </Typography>
-          <MyButton  startIcon={<DarkModeOutlinedIcon />} sx={responsiveButton}>Dark Mode</MyButton>
-          </ThemeProvider>
-  </div>
+  <MyBox sx={responsiveBox}>
+    
+     <Label value={text}/>
+     <BasicButton sx={responsiveButton}  value={button} icon={<DarkModeOutlinedIcon />} />
+         
+  </MyBox>
       
   );
 }
