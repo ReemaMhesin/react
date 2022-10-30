@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react/static/css/main.4ad73155.css",
-    "main.js": "/react/static/js/main.ee4ede78.js",
+    "main.css": "/react/static/css/main.f6102ad3.css",
+    "main.js": "/react/static/js/main.b0c42959.js",
     "static/js/787.1498b4ad.chunk.js": "/react/static/js/787.1498b4ad.chunk.js",
     "static/media/af.svg": "/react/static/media/af.39e74801e5626eaaf6f0231272ee9edb.svg",
     "static/media/nunito-all-400-normal.woff": "/react/static/media/nunito-all-400-normal.0c07f750f73ac5437580.woff",
@@ -38,12 +38,12 @@
     "static/media/dz.svg": "/react/static/media/dz.8fee433ae9c49de475a8c04a17ca0579.svg",
     "static/media/is.svg": "/react/static/media/is.bb94eebadbe98e459758ddcf03f1dfb9.svg",
     "static/media/de.svg": "/react/static/media/de.ed5be69598a5a9c32bc893f67ede7160.svg",
-    "main.4ad73155.css.map": "/react/static/css/main.4ad73155.css.map",
-    "main.ee4ede78.js.map": "/react/static/js/main.ee4ede78.js.map",
+    "main.f6102ad3.css.map": "/react/static/css/main.f6102ad3.css.map",
+    "main.b0c42959.js.map": "/react/static/js/main.b0c42959.js.map",
     "787.1498b4ad.chunk.js.map": "/react/static/js/787.1498b4ad.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4ad73155.css",
-    "static/js/main.ee4ede78.js"
+    "static/css/main.f6102ad3.css",
+    "static/js/main.b0c42959.js"
   ]
 }
