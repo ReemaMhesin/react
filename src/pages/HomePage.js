@@ -138,7 +138,7 @@ function HomePage() {
         >
           <Grid container columnSpacing={1} rowSpacing={2}>
             <Grid item xs={0} md={3} lg={3}>
-              <ListComponent topic="Favorites" sx={{ flexGrow: 1 ,height:'100vh',overflow:'scroll'}}/>
+              <ListComponent topic="Favorites" sx={{height:'100vh',overflow:'scroll'}}/>
             </Grid>
             <Grid item xs={12} md={9} lg={9}>
               <Box sx={{ flexGrow: 1 ,height:'100vh',overflow:'scroll'}}>

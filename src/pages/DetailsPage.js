@@ -79,7 +79,7 @@ function DetailsPage() {
 
         <ArrangmentBox sx={responsiveBox}>
           <Link style={linkStyle} to="/">
-            <div style={linkStyle}>
+            <div style={buttonStyle}>
               {" "}
               <BasicButton
                 value="Back"
