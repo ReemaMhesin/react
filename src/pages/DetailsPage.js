@@ -1,16 +1,15 @@
 import "@fontsource/nunito";
-import * as React from "react";
+import React, { useState, useEffect } from "react"
 import "../home.css";
-import TopBar from "../components/TopBar";
-import DiscriptionTemplete from "../components/DiscriptionTemplete";
+import Header from "../components/Header";
+import CountryDescription from "../components/CountryDescription";
 import Image from "../mainComponants/Image";
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import styled from "styled-components";
 import { experimental_sx as sx } from "@mui/system";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "typeface-cormorant";
-import mainFlag from "../images/Flag_of_Belgium.svg.png";
 import BasicButton from "../mainComponants/BasicButton";
 import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
 
@@ -51,20 +50,60 @@ const responsiveMainBox = {
 };
 
 const buttons = ["France", "Germany", "Netherlands"];
-const subParagraph1 = [
-  { topic: "Native Name", value: "België" },
-  { topic: "Population", value: "11,319,511" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Sub Region", value: "Western Europe" },
-  { topic: "Capital", value: "Brussels" },
-];
-const subParagraph2 = [
-  { topic: "Top Level Domain", value: "be" },
-  { topic: "Currencies", value: "Euro" },
-  { topic: "Languages", value: "Dutch, French, German" },
-];
 
+var currencyArr = [];
 function DetailsPage() {
+ 
+
+  const [countries, setCountry] = useState([]);
+  const { name } = useParams();
+
+  useEffect(()=>{
+    getCountry();
+      },[])
+    
+     const getCountry=async() => {
+      try{ const res = await fetch(`https://restcountries.com/v3.1/name/${name}`)
+      const data = await res.json()
+     await setCountry(data);
+    //  {data.map((country,index) => 
+    
+    //     for( const key in country.currencies){
+    //     currencyArr.push(country.currencies[key].name)
+    // };
+      // country.currencies.forEach(element => {
+      //   currencyArr.push(element.name)
+      // })
+   
+      //)}
+     // console.log(currencyArr);
+    }
+       catch (error){
+        console.error(error)
+       }
+      }
+
+      // const [currencyValue, setCurrencies] = useState("");
+
+      // const getCurrencies=() => {
+       
+
+      //    {countries.map((country,index) => 
+    
+      //     country.currencies.forEach(element => {
+      //       currencyArr.push(element.name)
+      //     })
+       
+      //   // let currency = currencyArr.join();
+      //   // setCurrencies(currency);
+      //     )}
+      //     console.log(currencyArr);
+      //   }
+      //   useEffect(()=>{
+      //     getCurrencies();
+      //       });
+          
+
   const linkStyle = {
     textDecoration: "none",
   };
@@ -75,7 +114,7 @@ function DetailsPage() {
   return (
     <div className="detailsPage">
       <ThemeProvider theme={theme}>
-        <TopBar text="Where in the world?" button="Dark Mode" />
+        <Header text="Where in the world?" button="Dark Mode" />
 
         <ArrangmentBox sx={responsiveBox}>
           <Link style={linkStyle} to="/">
@@ -88,19 +127,28 @@ function DetailsPage() {
             </div>
           </Link>
         </ArrangmentBox>
+        {countries.map((country) => 
 
-        <MainBox sx={responsiveMainBox}>
+        <MainBox sx={responsiveMainBox} >
           <div className="imgDiv">
-            <Image value={mainFlag} />
+            <Image value={country.flags.svg} alt={country.name.common} />
           </div>
           <div>
-            <DiscriptionTemplete
+            <CountryDescription
               buttonsnames={buttons}
-              subParagraph1={subParagraph1}
-              subParagraph2={subParagraph2}
+              countryName={country.name.common}
+              nativeName={country.name.common}
+              population={country.population.toLocaleString()}
+              region={country.region}
+              subRegion={country.subregion}
+              capital={country.capital[0]}
+              topLevelDomain={country.tld}
+              currencies={country.tld}
+              languages="Dutch, French, German"
             />
           </div>
         </MainBox>
+          )}
       </ThemeProvider>
     </div>
   );

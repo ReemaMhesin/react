@@ -11,6 +11,6 @@ const MyButton = styled(Button)(() => ({
   fontWeight: "400",
 }));
 
-export default function BasicButton({ value, icon }) {
-  return <MyButton startIcon={icon}>{value}</MyButton>;
+export default function BasicButton({ value, icon,onClick }) {
+  return <MyButton startIcon={icon} onClick={onClick}>{value}</MyButton>;
 }

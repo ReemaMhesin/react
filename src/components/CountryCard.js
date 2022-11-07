@@ -4,16 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import af from "../images/af.svg";
-import al from "../images/al.svg";
-import ax from "../images/ax.svg";
-import br from "../images/br.svg";
-import de from "../images/de.svg";
-import dz from "../images/dz.svg";
-import is from "../images/is.svg";
-import us from "../images/us.svg";
-import mainFlag from "../images/Flag_of_Belgium.svg.png";
-import BasicParagraph from "../mainComponants/BasicParagraph";
+import TextWithLabel from "../mainComponants/TextWithLabel ";
+import { Link } from "react-router-dom";
 
 const CountryName = styled("div")(({ theme }) => ({
   color: "black",
@@ -30,11 +22,17 @@ const Discription = styled("p")(() => ({
   lineHeight: "1.8",
 }));
 
-function ActionAreaCard({ flag, countryName, cardElements }) {
+function CardComponent({ flag, countryName, population,region,capital }) {
+  const linkStyle = {
+    textDecoration: "none",
+    justifyContent: { xs: "center" },
+  };
+  
   return (
+    <Link to={`/${countryName}`} style={linkStyle}>
     <Card
       sx={{
-        maxWidth: 252,
+        maxWidth: 272,
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
         justifyContent: { xs: "center" },
         marginRight: 0,
@@ -42,19 +40,25 @@ function ActionAreaCard({ flag, countryName, cardElements }) {
     >
       <CardActionArea>
         <CardMedia
+        sx={{
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+        }}
           component="img"
-          height="160"
-          image={flag}
+          height="163"
+          image={flag.svg}
           alt="green iguana"
         />
         <CardContent>
           <CountryName>{countryName}</CountryName>
           <Discription variant="body2" color="text.secondary">
-            <BasicParagraph contents={cardElements} />
+           <div> <TextWithLabel topic={"Population"} value={population.toLocaleString()}  /></div>
+           <div>  <TextWithLabel topic={"Region"} value={region}  /></div>
+           <div> <TextWithLabel topic={"Capital"} value={capital}  /></div>
           </Discription>
         </CardContent>
       </CardActionArea>
     </Card>
+    </Link>
   );
 }
-export default ActionAreaCard;
+export default CardComponent;

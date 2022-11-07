@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react"
 import { styled } from "@mui/material/styles";
 import "@fontsource/nunito";
 import "typeface-cormorant";
 import Box from "@mui/material/Box";
 import GroupButton from "../mainComponants/GroupButton";
-import BasicParagraph from "../mainComponants/BasicParagraph";
+import TextWithLabel from "../mainComponants/TextWithLabel ";
 
 const CountryName = styled("div")(({ theme }) => ({
   color: "black",
@@ -20,11 +20,6 @@ const Discription = styled("div")(() => ({
   fontWeight: "400",
 }));
 
-const Value = styled("span")(() => ({
-  color: "black",
-  fontSize: "16px",
-  fontWeight: "300",
-}));
 const BorderCountries = styled("div")(() => ({
   color: "black",
   fontSize: "16px",
@@ -32,7 +27,25 @@ const BorderCountries = styled("div")(() => ({
   marginRight: "7px",
 }));
 
-function FlagDiscription({ buttonsnames, subParagraph1, subParagraph2 }) {
+function CountryDescription({ buttonsnames,countryName, nativeName,population,region,subRegion,capital,topLevelDomain,currencies,languages  }) {
+  // const [currencyValue, setCurrencies] = useState("");
+
+  // const getCurrencies=() => {
+  //   console.log({currencies});
+
+  //   let currencyArr = [];
+  //   for( const key in {currencies}){
+  //       currencyArr.push({currencies}[key].name)
+  //   }
+   
+  //   let currency = currencyArr.join(', ');
+  //   setCurrencies(currency);
+  //   }
+  //   useEffect(()=>{
+  //     getCurrencies();
+  //       });
+    
+        
   return (
     <div>
       <Box
@@ -65,10 +78,15 @@ function FlagDiscription({ buttonsnames, subParagraph1, subParagraph2 }) {
                   marginTop: { xs: 5, sm: 0 },
                 }}
               >
-                <CountryName>Belgium</CountryName>
+                <CountryName>{countryName}</CountryName>
 
                 <Discription sx={{ flexGrow: 2 }}>
-                  <BasicParagraph contents={subParagraph1} />
+
+                <div><TextWithLabel topic={"Native Name"} value={nativeName}  /></div>
+                <div><TextWithLabel topic={"Population"} value={population}  /></div>
+                <div> <TextWithLabel topic={"Region"} value={region}  /></div>
+                <div> <TextWithLabel topic={"Sub Region"} value={subRegion}  /></div>
+                <div> <TextWithLabel topic={"Capital"} value={capital}  /></div>
                 </Discription>
               </Box>
             </div>
@@ -81,7 +99,10 @@ function FlagDiscription({ buttonsnames, subParagraph1, subParagraph2 }) {
                   marginTop: { xs: 3, sm: 0 },
                 }}
               >
-                <BasicParagraph contents={subParagraph2} />
+               
+               <div> <TextWithLabel topic={"Top Level Domain"} value={topLevelDomain}  /></div>
+               <div>  <TextWithLabel topic={"Currencies"} value={currencies}  /></div>
+               <div>  <TextWithLabel topic={"Languages"} value={languages}  /></div>
               </Discription>
             </div>
           </Box>
@@ -105,4 +126,4 @@ function FlagDiscription({ buttonsnames, subParagraph1, subParagraph2 }) {
   );
 }
 
-export default FlagDiscription;
+export default CountryDescription;

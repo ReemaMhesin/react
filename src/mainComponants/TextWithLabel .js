@@ -7,15 +7,10 @@ const Value = styled("span")(() => ({
   fontWeight: "300",
 }));
 
-export default function BasicParagraph({ contents }) {
+export default function TextWithLabel({ topic,value }) {
   return (
     <>
-      {contents.map(({ topic, value }) => (
-        <div key={topic}>
-          {topic}: <Value>{value}</Value>
-          <br />
-        </div>
-      ))}
+       {topic}: <Value>{value}</Value>
     </>
   );
 }

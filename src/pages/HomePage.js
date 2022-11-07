@@ -1,28 +1,17 @@
 import "@fontsource/nunito";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import "../home.css";
 import { styled } from "@mui/material/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { experimental_sx as sx } from "@mui/system";
 import "typeface-cormorant";
-import { Link } from "react-router-dom";
-import TopBar from "../components/TopBar";
-import MenuPopupState from "../mainComponants/MenuPopupState";
-import SearchFeild from "../components/SearchFeild";
+import Header from "../components/Header";
+import TextFeild from "../mainComponants/TextFeild";
 import ListComponent from "../mainComponants/ListComponent";
-import ActionAreaCard from "../components/ActionAreaCard";
+import CountryCard from "../components/CountryCard";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-
-import af from "../images/af.svg";
-import al from "../images/al.svg";
-import ax from "../images/ax.svg";
-import br from "../images/br.svg";
-import de from "../images/de.svg";
-import dz from "../images/dz.svg";
-import is from "../images/is.svg";
-import us from "../images/us.svg";
-import mainFlag from "../images/Flag_of_Belgium.svg.png";
+import SelectComponent from "../mainComponants/SelectComponent";
 
 const theme = createTheme({
   typography: {
@@ -54,77 +43,111 @@ const responsiveDiv = {
 const menuItems = [
   "No Filter",
   "Africa",
-  "America",
+  "Americas",
   "Asia",
   "Europe",
   "Oceania",
   "Favorites",
 ];
-const cardElement1 = [
-  { topic: "Population", value: "11,319,511" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Capital", value: "Brussels" },
-];
-const cardElement2 = [
-  { topic: "Population", value: "323,947,000" },
-  { topic: "Region", value: "Americas" },
-  { topic: "Capital", value: "Washington.D.C" },
-];
-const cardElement3 = [
-  { topic: "Population", value: "206,135,893" },
-  { topic: "Region", value: "Americas" },
-  { topic: "Capital", value: "Brasilia" },
-];
-const cardElement4 = [
-  { topic: "Population", value: "334,300" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Capital", value: "Reykjavik" },
-];
-const cardElement5 = [
-  { topic: "Population", value: "27,657,145" },
-  { topic: "Region", value: "Asia" },
-  { topic: "Capital", value: "Kabul" },
-];
-const cardElement6 = [
-  { topic: "Population", value: "28,875" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Capital", value: "Mariehamn" },
-];
-const cardElement7 = [
-  { topic: "Population", value: "2,886,026" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Capital", value: "Tirana" },
-];
-const cardElement8 = [
-  { topic: "Population", value: "40,400,000" },
-  { topic: "Region", value: "Africa" },
-  { topic: "Capital", value: "Algeria" },
-];
-const cardElement9 = [
-  { topic: "Population", value: "B1,770,900" },
-  { topic: "Region", value: "Europe" },
-  { topic: "Capital", value: "Berlin" },
-];
+
+var searchedFlag = "";
+var filteredFlag = "";
 
 function HomePage() {
-  const linkStyle = {
-    textDecoration: "none",
+  const [countries, setCountries] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    getCountries();
+  }, []);
+
+  const getCountries = async () => {
+    try {
+      const res = await fetch("https://restcountries.com/v3.1/all");
+      const data = await res.json();
+      await setCountries(data);
+      setCards(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const switchMode = () => {
+    setDarkMode((previous) => !previous);
+  };
+
+  const handleSelect = async (selectedItem) => {
+    if (selectedItem === "") return;
+    else if (selectedItem.toLowerCase() === "no filter") {
+      await setCountries(cards);
+    } else if (selectedItem.toLowerCase() === "favourites") {
+      console.log(selectedItem.toLowerCase());
+    } else {
+      filteredFlag = selectedItem;
+      await setCountries(
+        cards.filter(
+          (country) =>
+            country.region.toLowerCase() === selectedItem.toLowerCase()
+        )
+      );
+    }
+  };
+
+  const handleSearch = async (shearchedItem) => {
+    searchedFlag = shearchedItem;
+    console.log(shearchedItem);
+    setCards([]);
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${shearchedItem.toLowerCase()}`
+    );
+    const data = await res.json();
+    setCards(data);
+    console.log(data);
+
+    if (filteredFlag === "") {
+      await setCountries(cards);
+    } else if (shearchedItem === "") {
+      console.log(filteredFlag);
+      getCountries();
+      handleSelect(filteredFlag);
+    } else {
+      await setCountries(
+        cards.filter(
+          (country) =>
+            country.region.toLowerCase() === filteredFlag.toLowerCase()
+        )
+      );
+    }
+  };
+
+  const cardsStyle = {
     justifyContent: { xs: "center" },
   };
-  const cards = {
-    justifyContent: { xs: "center" },
-  };
+
   return (
     <div className="homePage">
       <ThemeProvider theme={theme}>
-        <TopBar text="Where in the world?" button="Dark Mode" />
+        <Header
+          text="Where in the world?"
+          button="Dark Mode"
+          onClick={switchMode}
+          mode={darkMode}
+        />
 
         <ArrangmentBox sx={responsiveDiv}>
           <div>
-            <SearchFeild placehoderValue="Search for a country..." />
+            <TextFeild
+              placehoderValue="Search for a country..."
+              handleSearch={handleSearch}
+            />
           </div>
           <div>
-            <MenuPopupState items={menuItems} menuTopic="Filter by" />
+            <SelectComponent
+              items={menuItems}
+              menuTopic="Filter by"
+              handleSelect={handleSelect}
+            />
           </div>
         </ArrangmentBox>
 
@@ -138,77 +161,26 @@ function HomePage() {
         >
           <Grid container columnSpacing={1} rowSpacing={2}>
             <Grid item xs={0} md={3} lg={3}>
-              <ListComponent topic="Favorites" sx={{height:'100vh',overflow:'scroll'}}/>
+              <ListComponent
+                topic="Favorites"
+                sx={{ sm: { height: "100vh", overflow: "scroll" } }}
+              />
             </Grid>
             <Grid item xs={12} md={9} lg={9}>
-              <Box sx={{ flexGrow: 1 ,height:'100vh',overflow:'scroll'}}>
+              <Box sx={{ flexGrow: 1, height: "100vh", overflow: "auto" }}>
                 <Grid container rowSpacing={9} columnSpacing={1}>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <Link style={linkStyle} to="/DetailsPage">
-                      <ActionAreaCard
-                        style={cards}
-                        countryName="Belgium"
-                        cardElements={cardElement1}
-                        flag={mainFlag}
+                  {countries.map((country) => (
+                    <Grid item xs={12} md={6} lg={4}>
+                      <CountryCard
+                        style={cardsStyle}
+                        countryName={country.name.common}
+                        population={country.population}
+                        region={country.region}
+                        capital={country.capital}
+                        flag={country.flags}
                       />{" "}
-                    </Link>
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="United States of America"
-                      cardElements={cardElement2}
-                      flag={us}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Brazil"
-                      cardElements={cardElement3}
-                      flag={br}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Iceland"
-                      cardElements={cardElement4}
-                      flag={is}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Afghanistan"
-                      cardElements={cardElement5}
-                      flag={af}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Aland Islands"
-                      cardElements={cardElement6}
-                      flag={ax}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Albania"
-                      cardElements={cardElement7}
-                      flag={al}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Algeria"
-                      cardElements={cardElement8}
-                      flag={dz}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={4}>
-                    <ActionAreaCard
-                      countryName="Germany"
-                      cardElements={cardElement9}
-                      flag={de}
-                    />
-                  </Grid>
+                    </Grid>
+                  ))}
                 </Grid>
               </Box>
             </Grid>
