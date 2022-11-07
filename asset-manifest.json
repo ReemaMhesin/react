@@ -1,9 +1,8 @@
 {
   "files": {
     "main.css": "/react/static/css/main.87d42cc7.css",
-    "main.js": "/react/static/js/main.4be216b0.js",
+    "main.js": "/react/static/js/main.925f1e97.js",
     "static/js/787.1498b4ad.chunk.js": "/react/static/js/787.1498b4ad.chunk.js",
-    "static/media/af.svg": "/react/static/media/af.39e74801e5626eaaf6f0231272ee9edb.svg",
     "static/media/nunito-all-400-normal.woff": "/react/static/media/nunito-all-400-normal.0c07f750f73ac5437580.woff",
     "static/media/cormorant-latin-400italic.woff": "/react/static/media/cormorant-latin-400italic.e2ac7de819edb989335a.woff",
     "static/media/cormorant-latin-700italic.woff": "/react/static/media/cormorant-latin-700italic.03114852524ea768a866.woff",
@@ -28,22 +27,15 @@
     "static/media/nunito-latin-400-normal.woff2": "/react/static/media/nunito-latin-400-normal.b8644b6e04ecda1cf98b.woff2",
     "static/media/nunito-latin-ext-400-normal.woff2": "/react/static/media/nunito-latin-ext-400-normal.e8049e65c49ce687cff1.woff2",
     "static/media/nunito-cyrillic-ext-400-normal.woff2": "/react/static/media/nunito-cyrillic-ext-400-normal.f21ac09511c6fa4f9463.woff2",
-    "static/media/al.svg": "/react/static/media/al.dd17f9b0b19aa16e7afe8e156454f33d.svg",
     "static/media/nunito-cyrillic-400-normal.woff2": "/react/static/media/nunito-cyrillic-400-normal.166e8e87ae0b6f3deed3.woff2",
     "static/media/nunito-vietnamese-400-normal.woff2": "/react/static/media/nunito-vietnamese-400-normal.6a8bc7acd205391fb71a.woff2",
-    "static/media/br.svg": "/react/static/media/br.0195f1434b135a18881f1fd31a962073.svg",
     "index.html": "/react/index.html",
-    "static/media/us.svg": "/react/static/media/us.14abad61351d512234363fd6c0af113a.svg",
-    "static/media/ax.svg": "/react/static/media/ax.dae59e50e62504789ce58388d65e1b30.svg",
-    "static/media/dz.svg": "/react/static/media/dz.8fee433ae9c49de475a8c04a17ca0579.svg",
-    "static/media/is.svg": "/react/static/media/is.bb94eebadbe98e459758ddcf03f1dfb9.svg",
-    "static/media/de.svg": "/react/static/media/de.ed5be69598a5a9c32bc893f67ede7160.svg",
     "main.87d42cc7.css.map": "/react/static/css/main.87d42cc7.css.map",
-    "main.4be216b0.js.map": "/react/static/js/main.4be216b0.js.map",
+    "main.925f1e97.js.map": "/react/static/js/main.925f1e97.js.map",
     "787.1498b4ad.chunk.js.map": "/react/static/js/787.1498b4ad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.87d42cc7.css",
-    "static/js/main.4be216b0.js"
+    "static/js/main.925f1e97.js"
   ]
 }
