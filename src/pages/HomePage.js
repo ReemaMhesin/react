@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { experimental_sx as sx } from "@mui/system";
 import "typeface-cormorant";
-import Header from "../components/Header";
+import { Link } from "react-router-dom";
 import TextFeild from "../mainComponants/TextFeild";
 import ListComponent from "../mainComponants/ListComponent";
 import CountryCard from "../components/CountryCard";
@@ -212,6 +212,10 @@ function HomePage() {
     justifyContent: { xs: "center" },
   };
 
+  const linkStyle = {
+    textDecoration: "none",
+  };
+
   return (
     <div className="homePage" draggable="false">
       <ThemeProvider theme={theme}>
@@ -257,6 +261,7 @@ function HomePage() {
                 <Grid container rowSpacing={9} columnSpacing={1}>
                   {cards.map((country, index) => (
                     <Grid item xs={12} md={6} lg={4} key={index}>
+                        <Link to={`/DetailsPage/${country.cca2}`} style={linkStyle}>
                       <CountryCard
                         className="card"
                         handleAddToFavorite={handleAddToFavorite}
@@ -270,6 +275,7 @@ function HomePage() {
                         capital={country.capital}
                         flag={country.flags}
                       />{" "}
+                      </Link>
                     </Grid>
                   ))}
                 </Grid>

@@ -100,6 +100,7 @@ function CardComponent({
   };
 
   return (
+  
     <Card
       id="card"
       onDragStart={(e) => dragStart(e)}
@@ -115,7 +116,7 @@ function CardComponent({
     >
 
       <CardActionArea>
-      <Link to={`/DetailsPage/${countryCode}`} style={linkStyle}>
+      
         <CardMedia
           sx={{
             boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
@@ -126,7 +127,7 @@ function CardComponent({
           alt={countryName}
           draggable="false"
         />
-       
+         
           <CardContent>
             <CountryName ref={cardsRef} className="text">
               {countryName}
@@ -153,7 +154,7 @@ function CardComponent({
               </div>
             </Discription>
           </CardContent>
-        </Link>
+      
         <IconButton
           sx={{  display: { xs: "flex", lg: "none" }, justifyContent: "right"}}
           component="label"
@@ -163,6 +164,7 @@ function CardComponent({
         </IconButton>
       </CardActionArea>
     </Card>
+   
   );
 }
 export default CardComponent;
