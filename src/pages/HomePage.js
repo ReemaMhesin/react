@@ -205,6 +205,13 @@ function HomePage() {
     setImage(image.filter((item) => item.toLowerCase() !== img.toLowerCase()));
 
     
+      setFavoriteCards(
+        favoriteCards.filter(
+          (country) =>
+            country.name.common.toLowerCase() !== name.toLowerCase()
+        )
+      
+    );
   };
 
 
