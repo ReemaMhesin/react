@@ -1,10 +1,9 @@
 import "@fontsource/nunito";
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import "../home.css";
-import Header from "../components/Header";
 import CountryDescription from "../components/CountryDescription";
 import Image from "../mainComponants/Image";
-import { Link,useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { experimental_sx as sx } from "@mui/system";
 import Box from "@mui/material/Box";
@@ -49,60 +48,48 @@ const responsiveMainBox = {
   marginLeft: { xs: 0, md: 3 },
 };
 
-const buttons = ["France", "Germany", "Netherlands"];
-
-var currencyArr = [];
 function DetailsPage() {
- 
 
-  const [countries, setCountry] = useState([]);
-  const { name } = useParams();
+  const [country, setCountry] = useState([]);
+  const { code } = useParams();
+  const [currencyValue, setCurrencies] = useState("");
+  const [languagesValue, setLanguages] = useState("");
+  const [borderValue, setBorders] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getCountry();
-      },[])
-    
-     const getCountry=async() => {
-      try{ const res = await fetch(`https://restcountries.com/v3.1/name/${name}`)
-      const data = await res.json()
-     await setCountry(data);
-    //  {data.map((country,index) => 
-    
-    //     for( const key in country.currencies){
-    //     currencyArr.push(country.currencies[key].name)
-    // };
-      // country.currencies.forEach(element => {
-      //   currencyArr.push(element.name)
-      // })
    
-      //)}
-     // console.log(currencyArr);
+  }, []);
+
+  const getCountry = async () => {
+    try {
+      const res = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+      const data = await res.json();
+       setCountry(data);
+
+    const currencies = data[0].currencies;
+    let currencyArr = []
+    for( const key in currencies){
+        currencyArr.push(currencies[key].name)
     }
-       catch (error){
-        console.error(error)
-       }
-      }
+    setCurrencies(currencyArr.join(', '));
 
-      // const [currencyValue, setCurrencies] = useState("");
+    const languages = data[0].languages;
+    let languagesArr = []
+    for( const key in languages){
+        languagesArr.push(languages[key])
+    }
+    setLanguages(languagesArr.join(', '));
 
-      // const getCurrencies=() => {
-       
+    setBorders(data[0].borders.slice(0,3));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-      //    {countries.map((country,index) => 
-    
-      //     country.currencies.forEach(element => {
-      //       currencyArr.push(element.name)
-      //     })
-       
-      //   // let currency = currencyArr.join();
-      //   // setCurrencies(currency);
-      //     )}
-      //     console.log(currencyArr);
-      //   }
-      //   useEffect(()=>{
-      //     getCurrencies();
-      //       });
-          
+  
+  
+
 
   const linkStyle = {
     textDecoration: "none",
@@ -114,8 +101,6 @@ function DetailsPage() {
   return (
     <div className="detailsPage">
       <ThemeProvider theme={theme}>
-        <Header text="Where in the world?" button="Dark Mode" />
-
         <ArrangmentBox sx={responsiveBox}>
           <Link style={linkStyle} to="/">
             <div style={buttonStyle}>
@@ -127,28 +112,27 @@ function DetailsPage() {
             </div>
           </Link>
         </ArrangmentBox>
-        {countries.map((country) => 
-
-        <MainBox sx={responsiveMainBox} >
-          <div className="imgDiv">
-            <Image value={country.flags.svg} alt={country.name.common} />
-          </div>
-          <div>
-            <CountryDescription
-              buttonsnames={buttons}
-              countryName={country.name.common}
-              nativeName={country.name.common}
-              population={country.population.toLocaleString()}
-              region={country.region}
-              subRegion={country.subregion}
-              capital={country.capital[0]}
-              topLevelDomain={country.tld}
-              currencies={country.tld}
-              languages="Dutch, French, German"
-            />
-          </div>
-        </MainBox>
-          )}
+        {country.map((country) => (
+          <MainBox sx={responsiveMainBox}>
+            <div className="imgDiv">
+              <Image value={country.flags.svg} alt={country.name.common} />
+            </div>
+            <div>
+              <CountryDescription
+                buttonsnames={borderValue}
+                countryName={country.name.common}
+                nativeName={country.name.common}
+                population={country.population.toLocaleString()}
+                region={country.region}
+                subRegion={country.subregion}
+                capital={country.capital[0]}
+                topLevelDomain={country.tld}
+                currencies={currencyValue}
+                languages={languagesValue}
+              />
+            </div>
+          </MainBox>
+        ))}
       </ThemeProvider>
     </div>
   );

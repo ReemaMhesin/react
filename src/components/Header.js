@@ -4,11 +4,9 @@ import { styled } from "@mui/material/styles";
 import { experimental_sx as sx } from "@mui/system";
 import Label from "../mainComponants/Label";
 import BasicButton from "../mainComponants/BasicButton";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+
 
 const MyBox = styled(Box)(
-
-  
   sx({
     display: "flex",
     justifyContent: "space-between",
@@ -32,14 +30,15 @@ const responsiveButton = {
   marginRight: 3,
 };
 
-export default function TopBar({ text, button,onClick,mode }) {
+export default function Header({ text, button,icon, onClick }) {
   return (
-    <MyBox sx={responsiveBox} $mode={mode}>
-      <Label value={text}  />
-      <BasicButton onClick={onClick}
+    <MyBox sx={responsiveBox}  draggable="false" className="theme">
+      <Label value={text} />
+      <BasicButton
+        onClick={onClick}
         sx={responsiveButton}
         value={button}
-        icon={<DarkModeOutlinedIcon />}
+        icon={icon}
       />
     </MyBox>
   );

@@ -11,6 +11,7 @@
 
 .detailsPage{
     font-family:var(--fontFamily-nunito)!important;
+    height: 100vh;
 }
 
 .imgDiv{
@@ -22,7 +23,46 @@
     font-family:var(--fontFamily-nunito)!important;
 }
 
+#light .text {
+    color: black;
+  }
+  
+  #dark .text {
+    color: white;
+  }
 
+#light .theme {
+  color: black;
+  background: white;
+}
+
+
+#dark .theme {
+  color: white;
+  background: #2b3945;
+}
+#light .Box {
+    background: #fafafa;
+  }
+
+#dark .Box {
+    background: #202c37;
+  }
+
+#light .homePage {
+    background: #fafafa;
+  }
+
+#dark .homePage {
+    background: #202c37;
+  }
+  #light .detailsPage {
+    background: #fafafa;
+  }
+
+#dark .detailsPage {
+    background: #202c37;
+  }
 @media only screen and (max-width:440px){
     .imgDiv{
         height:15rem;

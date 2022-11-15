@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import "@fontsource/nunito";
 import "typeface-cormorant";
@@ -27,25 +27,19 @@ const BorderCountries = styled("div")(() => ({
   marginRight: "7px",
 }));
 
-function CountryDescription({ buttonsnames,countryName, nativeName,population,region,subRegion,capital,topLevelDomain,currencies,languages  }) {
-  // const [currencyValue, setCurrencies] = useState("");
-
-  // const getCurrencies=() => {
-  //   console.log({currencies});
-
-  //   let currencyArr = [];
-  //   for( const key in {currencies}){
-  //       currencyArr.push({currencies}[key].name)
-  //   }
-   
-  //   let currency = currencyArr.join(', ');
-  //   setCurrencies(currency);
-  //   }
-  //   useEffect(()=>{
-  //     getCurrencies();
-  //       });
-    
-        
+function CountryDescription({
+  buttonsnames,
+  countryName,
+  nativeName,
+  population,
+  region,
+  subRegion,
+  capital,
+  topLevelDomain,
+  currencies,
+  languages,
+}) {
+  
   return (
     <div>
       <Box
@@ -78,15 +72,27 @@ function CountryDescription({ buttonsnames,countryName, nativeName,population,re
                   marginTop: { xs: 5, sm: 0 },
                 }}
               >
-                <CountryName>{countryName}</CountryName>
+                <CountryName className="text">{countryName}</CountryName>
 
                 <Discription sx={{ flexGrow: 2 }}>
-
-                <div><TextWithLabel topic={"Native Name"} value={nativeName}  /></div>
-                <div><TextWithLabel topic={"Population"} value={population}  /></div>
-                <div> <TextWithLabel topic={"Region"} value={region}  /></div>
-                <div> <TextWithLabel topic={"Sub Region"} value={subRegion}  /></div>
-                <div> <TextWithLabel topic={"Capital"} value={capital}  /></div>
+                  <div>
+                    <TextWithLabel topic={"Native Name"} value={nativeName} />
+                  </div>
+                  <div>
+                    <TextWithLabel topic={"Population"} value={population} />
+                  </div>
+                  <div>
+                    {" "}
+                    <TextWithLabel topic={"Region"} value={region} />
+                  </div>
+                  <div>
+                    {" "}
+                    <TextWithLabel topic={"Sub Region"} value={subRegion} />
+                  </div>
+                  <div>
+                    {" "}
+                    <TextWithLabel topic={"Capital"} value={capital} />
+                  </div>
                 </Discription>
               </Box>
             </div>
@@ -99,10 +105,21 @@ function CountryDescription({ buttonsnames,countryName, nativeName,population,re
                   marginTop: { xs: 3, sm: 0 },
                 }}
               >
-               
-               <div> <TextWithLabel topic={"Top Level Domain"} value={topLevelDomain}  /></div>
-               <div>  <TextWithLabel topic={"Currencies"} value={currencies}  /></div>
-               <div>  <TextWithLabel topic={"Languages"} value={languages}  /></div>
+                <div>
+                  {" "}
+                  <TextWithLabel
+                    topic={"Top Level Domain"}
+                    value={topLevelDomain}
+                  />
+                </div>
+                <div>
+                  {" "}
+                  <TextWithLabel topic={"Currencies"} value={currencies} />
+                </div>
+                <div>
+                  {" "}
+                  <TextWithLabel topic={"Languages"} value={languages} />
+                </div>
               </Discription>
             </div>
           </Box>
@@ -117,7 +134,7 @@ function CountryDescription({ buttonsnames,countryName, nativeName,population,re
               marginLeft: { xs: 3, sm: 0 },
             }}
           >
-            <BorderCountries>Border Countries:</BorderCountries>
+            <BorderCountries className="text">Border Countries:</BorderCountries>
             <GroupButton buttonsNames={buttonsnames} />
           </Box>
         </div>

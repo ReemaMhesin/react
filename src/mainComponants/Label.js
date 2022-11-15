@@ -2,6 +2,7 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { experimental_sx as sx } from "@mui/system";
+import "../home.css";
 
 const Tobic = styled(Typography)(
   sx({
@@ -13,5 +14,5 @@ const Tobic = styled(Typography)(
 );
 
 export default function Label({ value }) {
-  return <Tobic>{value} </Tobic>;
+  return <Tobic className="theme">{value} </Tobic>;
 }
