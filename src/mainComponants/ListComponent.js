@@ -70,7 +70,7 @@ export default function ListComponent({
       draggable="false"
       sx={{
         width: "100%",
-        height: 650,
+        height: "100vh",
         maxWidth: 300,
         bgcolor: "white",
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",

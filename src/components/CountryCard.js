@@ -80,6 +80,7 @@ function CardComponent({
   }
 
   const handleFavorite = (e) => {
+    e.preventDefault();
     const name =
       e.target.parentElement.parentElement.parentElement.firstElementChild
         .getAttribute("alt")
