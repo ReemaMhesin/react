@@ -14,7 +14,9 @@ const MyButton = styled(Button)(() => ({
 
 
 export default function BasicButton({ value, icon, onClick }) {
-  const toggleTheme = () => {
+  const toggleTheme = (e) => {
+    e.preventDefault(e);
+
     onClick((curr) => (curr === "light" ? "dark" : "light"));
   };
   return (
