@@ -48,6 +48,8 @@ export default function ListComponent({
   }
 
   const handledelete = (e) => {
+    e.preventDefault();
+
     const name =
       e.target.parentElement.parentElement.parentElement.firstElementChild.firstElementChild.firstElementChild.firstElementChild
         .getAttribute("alt")
