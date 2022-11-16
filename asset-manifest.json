@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react/static/css/main.16b8e86c.css",
-    "main.js": "/react/static/js/main.b9b3e600.js",
+    "main.js": "/react/static/js/main.26a9684a.js",
     "static/js/787.1498b4ad.chunk.js": "/react/static/js/787.1498b4ad.chunk.js",
     "static/media/nunito-all-400-normal.woff": "/react/static/media/nunito-all-400-normal.0c07f750f73ac5437580.woff",
     "static/media/cormorant-latin-400italic.woff": "/react/static/media/cormorant-latin-400italic.e2ac7de819edb989335a.woff",
@@ -31,11 +31,11 @@
     "static/media/nunito-vietnamese-400-normal.woff2": "/react/static/media/nunito-vietnamese-400-normal.6a8bc7acd205391fb71a.woff2",
     "index.html": "/react/index.html",
     "main.16b8e86c.css.map": "/react/static/css/main.16b8e86c.css.map",
-    "main.b9b3e600.js.map": "/react/static/js/main.b9b3e600.js.map",
+    "main.26a9684a.js.map": "/react/static/js/main.26a9684a.js.map",
     "787.1498b4ad.chunk.js.map": "/react/static/js/787.1498b4ad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16b8e86c.css",
-    "static/js/main.b9b3e600.js"
+    "static/js/main.26a9684a.js"
   ]
 }
