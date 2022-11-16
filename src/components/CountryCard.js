@@ -5,7 +5,6 @@ import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import TextWithLabel from "../mainComponants/TextWithLabel ";
-import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import StarIcon from "@mui/icons-material/Star";
 import { useState, useEffect, useRef } from "react";
@@ -42,27 +41,6 @@ function CardComponent({
     textDecoration: "none",
     justifyContent: { xs: "center" },
   };
-
-  // useEffect(() => {
-  //   const star = handleStar.split("-");
-  //   const name = star[0];
-
-  //   for (const item of document.querySelectorAll("#card")) {
-  //     const content = item.firstElementChild.firstElementChild
-  //       .getAttribute("alt")
-  //       .toLowerCase();
-
-  //     if (content.trim() === name.trim()) {
-  //       if (star[1] === "add") {
-  //         item.firstElementChild.querySelector("#icon").style.color =
-  //           "rgb(237, 95, 30)";
-  //       } else if (star[1] === "delete") {
-  //         item.firstElementChild.querySelector("#icon").style.color =
-  //           "lightgray";
-  //       }
-  //     }
-  //   }
-  // }, [handleStar]);
 
   const dragStart = (e) => {
     const name = e.target.firstElementChild.firstElementChild
@@ -101,7 +79,6 @@ function CardComponent({
   };
 
   return (
-  
     <Card
       id="card"
       onDragStart={(e) => dragStart(e)}
@@ -115,9 +92,7 @@ function CardComponent({
       }}
       className="theme"
     >
-
       <CardActionArea>
-      
         <CardMedia
           sx={{
             boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
@@ -128,36 +103,32 @@ function CardComponent({
           alt={countryName}
           draggable="false"
         />
-         
-          <CardContent>
-            <CountryName ref={cardsRef} className="text">
-              {countryName}
-            </CountryName>
-            <Discription
-              variant="body2"
-              color="text.secondary"
-              className="text"
-            >
-              <div>
-                {" "}
-                <TextWithLabel
-                  topic={"Population"}
-                  value={population.toLocaleString()}
-                />
-              </div>
-              <div>
-                {" "}
-                <TextWithLabel topic={"Region"} value={region} />
-              </div>
-              <div>
-                {" "}
-                <TextWithLabel topic={"Capital"} value={capital} />
-              </div>
-            </Discription>
-          </CardContent>
-      
+
+        <CardContent>
+          <CountryName ref={cardsRef} className="text">
+            {countryName}
+          </CountryName>
+          <Discription variant="body2" color="text.secondary" className="text">
+            <div>
+              {" "}
+              <TextWithLabel
+                topic={"Population"}
+                value={population.toLocaleString()}
+              />
+            </div>
+            <div>
+              {" "}
+              <TextWithLabel topic={"Region"} value={region} />
+            </div>
+            <div>
+              {" "}
+              <TextWithLabel topic={"Capital"} value={capital} />
+            </div>
+          </Discription>
+        </CardContent>
+
         <IconButton
-          sx={{  display: { xs: "flex", lg: "none" }, justifyContent: "right"}}
+          sx={{ display: { xs: "flex", lg: "none" }, justifyContent: "right" }}
           component="label"
           onClick={handleFavorite}
         >
@@ -165,7 +136,6 @@ function CardComponent({
         </IconButton>
       </CardActionArea>
     </Card>
-   
   );
 }
 export default CardComponent;

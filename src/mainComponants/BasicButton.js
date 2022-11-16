@@ -12,11 +12,8 @@ const MyButton = styled(Button)(() => ({
   fontWeight: "400",
 }));
 
-
 export default function BasicButton({ value, icon, onClick }) {
-  const toggleTheme = (e) => {
-    e.preventDefault(e);
-
+  const toggleTheme = () => {
     onClick((curr) => (curr === "light" ? "dark" : "light"));
   };
   return (

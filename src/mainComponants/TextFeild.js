@@ -33,7 +33,9 @@ export default function TextFeild({ placehoderValue, handleSearch }) {
 
   return (
     <FormControl sx={responsivePaper} draggable="false" className="theme">
-      <InputLabel id="search" className="text">{placehoderValue}</InputLabel>
+      <InputLabel id="search" className="text">
+        {placehoderValue}
+      </InputLabel>
       <Outlinedinput
         labelId="search"
         id="search"

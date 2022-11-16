@@ -19,9 +19,12 @@ const MyButton = styled(Button)(() => ({
 
 export default function GroupButton({ buttonsNames }) {
   const values = buttonsNames;
-  const buttonItems = values.map((item,index) => (
+  const buttonItems = values.map((item, index) => (
     <div>
-      <MyButton key={index} className="theme"> {item}</MyButton>
+      <MyButton key={index} className="theme">
+        {" "}
+        {item}
+      </MyButton>
     </div>
   ));
   return (

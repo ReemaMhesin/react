@@ -23,12 +23,20 @@ export default function SelectComponent({ items, menuTopic, handleSelect }) {
 
   const values = items;
   const listItems = values.map((item) => (
-    <Menuitem value={item} className="theme">{item}</Menuitem>
+    <Menuitem value={item} className="theme">
+      {item}
+    </Menuitem>
   ));
 
   return (
-    <FormControl sx={{ width: "180px", height: "50px" }} draggable="false" className="theme">
-      <InputLabel id="demo-select-small" className="theme">Filter By</InputLabel>
+    <FormControl
+      sx={{ width: "180px", height: "50px" }}
+      draggable="false"
+      className="theme"
+    >
+      <InputLabel id="demo-select-small" className="theme">
+        Filter By
+      </InputLabel>
       <Select
         sx={{ backgroundColor: "white" }}
         labelId="demo-select-small"

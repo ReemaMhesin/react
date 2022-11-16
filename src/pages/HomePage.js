@@ -82,7 +82,6 @@ function HomePage() {
         setfilteredFlag(filteredFlag);
       } else {
         try {
-          // setCountries([]);
           const res = await fetch(
             `https://restcountries.com/v3.1/name/${searchedFlag.toLowerCase()}`
           );
@@ -93,7 +92,6 @@ function HomePage() {
         }
         if (filteredFlag.toLowerCase() === "no filter" || filteredFlag === "") {
           setCards(countries);
-        
         } else {
           setCards(
             countries.filter(
@@ -101,7 +99,6 @@ function HomePage() {
                 country.region.toLowerCase() === filteredFlag.toLowerCase()
             )
           );
-        
         }
       }
     };
@@ -117,12 +114,10 @@ function HomePage() {
             const data = await res.json();
             setCards(data);
             setCountries(data);
-          
           } catch (error) {
             console.error(error);
           }
         } else if (filteredFlag.toLowerCase() === "favourites") {
-         
           setCards(favoriteCards);
         } else {
           setCards(
@@ -188,13 +183,14 @@ function HomePage() {
     }
   };
   const handleDelete = (name, img) => {
-
     for (const item of document.querySelectorAll("#card")) {
       const content = item.firstElementChild.firstElementChild
         .getAttribute("alt")
         .toLowerCase();
-       
-      if (content.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) {
+
+      if (
+        content.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()
+      ) {
         item.firstElementChild.querySelector("#icon").style.color = "lightgray";
       }
     }
@@ -204,16 +200,12 @@ function HomePage() {
     );
     setImage(image.filter((item) => item.toLowerCase() !== img.toLowerCase()));
 
-    
-      setFavoriteCards(
-        favoriteCards.filter(
-          (country) =>
-            country.name.common.toLowerCase() !== name.toLowerCase()
-        )
-      
+    setFavoriteCards(
+      favoriteCards.filter(
+        (country) => country.name.common.toLowerCase() !== name.toLowerCase()
+      )
     );
   };
-
 
   const cardsStyle = {
     justifyContent: { xs: "center" },
@@ -268,20 +260,23 @@ function HomePage() {
                 <Grid container rowSpacing={9} columnSpacing={1}>
                   {cards.map((country, index) => (
                     <Grid item xs={12} md={6} lg={4} key={index}>
-                        <Link to={`/DetailsPage/${country.cca2}`} style={linkStyle}>
-                      <CountryCard
-                        className="card"
-                        handleAddToFavorite={handleAddToFavorite}
-                        handleDrag={handleDrag}
-                        handleDelete={handleDelete}
-                        style={cardsStyle}
-                        countryName={country.name.common}
-                        countryCode={country.cca2}
-                        population={country.population}
-                        region={country.region}
-                        capital={country.capital}
-                        flag={country.flags}
-                      />{" "}
+                      <Link
+                        to={`/DetailsPage/${country.cca2}`}
+                        style={linkStyle}
+                      >
+                        <CountryCard
+                          className="card"
+                          handleAddToFavorite={handleAddToFavorite}
+                          handleDrag={handleDrag}
+                          handleDelete={handleDelete}
+                          style={cardsStyle}
+                          countryName={country.name.common}
+                          countryCode={country.cca2}
+                          population={country.population}
+                          region={country.region}
+                          capital={country.capital}
+                          flag={country.flags}
+                        />{" "}
                       </Link>
                     </Grid>
                   ))}

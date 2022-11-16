@@ -59,8 +59,6 @@ export default function ListComponent({
         .getAttribute("src")
         .toLowerCase();
     handleDelete(name, image);
-
-    //e.target.parentElement.parentElement.parentElement.remove();
   };
 
   return (
@@ -129,4 +127,3 @@ export default function ListComponent({
     </Box>
   );
 }
-

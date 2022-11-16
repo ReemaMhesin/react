@@ -39,7 +39,6 @@ function CountryDescription({
   currencies,
   languages,
 }) {
-  
   return (
     <div>
       <Box
@@ -134,7 +133,9 @@ function CountryDescription({
               marginLeft: { xs: 3, sm: 0 },
             }}
           >
-            <BorderCountries className="text">Border Countries:</BorderCountries>
+            <BorderCountries className="text">
+              Border Countries:
+            </BorderCountries>
             <GroupButton buttonsNames={buttonsnames} />
           </Box>
         </div>

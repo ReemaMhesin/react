@@ -49,7 +49,6 @@ const responsiveMainBox = {
 };
 
 function DetailsPage() {
-
   const [country, setCountry] = useState([]);
   const { code } = useParams();
   const [currencyValue, setCurrencies] = useState("");
@@ -58,38 +57,33 @@ function DetailsPage() {
 
   useEffect(() => {
     getCountry();
-   
   }, []);
 
   const getCountry = async () => {
     try {
       const res = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
       const data = await res.json();
-       setCountry(data);
+      setCountry(data);
 
-    const currencies = data[0].currencies;
-    let currencyArr = []
-    for( const key in currencies){
-        currencyArr.push(currencies[key].name)
-    }
-    setCurrencies(currencyArr.join(', '));
+      const currencies = data[0].currencies;
+      let currencyArr = [];
+      for (const key in currencies) {
+        currencyArr.push(currencies[key].name);
+      }
+      setCurrencies(currencyArr.join(", "));
 
-    const languages = data[0].languages;
-    let languagesArr = []
-    for( const key in languages){
-        languagesArr.push(languages[key])
-    }
-    setLanguages(languagesArr.join(', '));
+      const languages = data[0].languages;
+      let languagesArr = [];
+      for (const key in languages) {
+        languagesArr.push(languages[key]);
+      }
+      setLanguages(languagesArr.join(", "));
 
-    setBorders(data[0].borders.slice(0,3));
+      setBorders(data[0].borders.slice(0, 3));
     } catch (error) {
       console.error(error);
     }
   };
-
-  
-  
-
 
   const linkStyle = {
     textDecoration: "none",
