@@ -34,27 +34,24 @@ function CardComponent({
   handleDelete,
   handleDrag,
   handleAddToFavorite,
-  deletedByList
+  favoriteCards,
 }) {
-  const favoriteName=countryName;
-  const [isFavorite, setIsFavorite] =useState(false);
-  const [byStar, setByStar] =useState(false);
-  
+  const favoriteName = countryName;
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if(deletedByList.toLowerCase()===favoriteName.toLowerCase()) setIsFavorite(false);
-    console.log(deletedByList,favoriteName);
-  }, [deletedByList]);
-
-  useEffect(() => {
-    isFavorite? handleAddToFavorite(favoriteName):handleDelete(favoriteName);
-  }, [byStar]);
-
-  
+    let flag = false;
+    favoriteCards.some((element) => {
+      if (element.name.common.toLowerCase() === favoriteName.toLowerCase()) {
+        setIsFavorite(true);
+        flag = true;
+      }
+    });
+    if (!flag) setIsFavorite(false);
+  }, [favoriteCards]);
 
   const dragStart = () => {
     handleDrag(favoriteName);
-    setIsFavorite(true);
   };
 
   function overrideEventDefaults(event) {
@@ -64,8 +61,9 @@ function CardComponent({
 
   const handleFavorite = (e) => {
     e.preventDefault();
-    setIsFavorite(!isFavorite);
-    setByStar(!byStar);
+    !isFavorite
+      ? handleAddToFavorite(favoriteName)
+      : handleDelete(favoriteName);
   };
 
   return (
@@ -95,9 +93,7 @@ function CardComponent({
         />
 
         <CardContent>
-          <CountryName  className="text">
-            {countryName}
-          </CountryName>
+          <CountryName className="text">{countryName}</CountryName>
           <Discription variant="body2" color="text.secondary" className="text">
             <div>
               {" "}
@@ -118,7 +114,11 @@ function CardComponent({
         </CardContent>
 
         <IconButton
-          sx={{ display: { xs: "flex", lg: "none" }, justifyContent: "right",color: isFavorite ? 'rgb(237, 95, 30)' : 'lightgray'}}
+          sx={{
+            display: { xs: "flex", lg: "none" },
+            justifyContent: "right",
+            color: isFavorite ? "rgb(237, 95, 30)" : "lightgray",
+          }}
           component="label"
           onClick={handleFavorite}
         >
@@ -129,43 +129,6 @@ function CardComponent({
   );
 }
 export default CardComponent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import * as React from "react";
 // import Card from "@mui/material/Card";
@@ -208,7 +171,6 @@ export default CardComponent;
 //   const favoriteName=countryName;
 //   const favoriteImg=flag.svg;
 //   const [isFavorite, setIsFavorite] =useState(false);
-  
 
 //   useEffect(() => {
 //     if(deletedByList.toLowerCase()===favoriteName.toLowerCase()) setIsFavorite(false);
@@ -217,8 +179,6 @@ export default CardComponent;
 //   useEffect(() => {
 //     isFavorite? handleAddToFavorite(favoriteName, favoriteImg):handleDelete(favoriteName, favoriteImg);
 //   }, [isFavorite]);
-
-  
 
 //   const dragStart = () => {
 //     setIsFavorite(true);

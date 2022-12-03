@@ -57,7 +57,14 @@ function HomePage() {
   const [cards, setCards] = useState([]);
   const [favoriteCards, setFavoriteCards] = useState([]);
   const [draggedName, setDargedName] = useState("");
-  const [deletedByList, setDeletedByList] = useState("");
+  const firstTime = useRef(false);
+
+  useEffect(() => {
+    if (!firstTime.current)
+      localStorage.getItem("favoriteCards")
+        ? setFavoriteCards(JSON.parse(localStorage.getItem("favoriteCards")))
+        : setFavoriteCards([]);
+  }, []);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -112,22 +119,29 @@ function HomePage() {
   };
 
   const handleDrop = () => {
-    setFavoriteCards([...new Set( favoriteCards.concat(
-      countries.filter(
-        (country) =>
-          country.name.common.toLowerCase() === draggedName.toLowerCase()
-      )
-    ))]);
+    setFavoriteCards([
+      ...new Set(
+        favoriteCards.concat(
+          countries.filter(
+            (country) =>
+              country.name.common.toLowerCase() === draggedName.toLowerCase()
+          )
+        )
+      ),
+    ]);
   };
 
   const handleAddToFavorite = (name) => {
-    setFavoriteCards([...new Set( favoriteCards.concat(
-      countries.filter(
-        (country) =>
-          country.name.common.toLowerCase() === name.toLowerCase()
-      )
-    ))]);
-   
+    setFavoriteCards([
+      ...new Set(
+        favoriteCards.concat(
+          countries.filter(
+            (country) =>
+              country.name.common.toLowerCase() === name.toLowerCase()
+          )
+        )
+      ),
+    ]);
   };
 
   const handleDelete = (name) => {
@@ -136,10 +150,13 @@ function HomePage() {
         (country) => country.name.common.toLowerCase() !== name.toLowerCase()
       )
     );
-    setDeletedByList(name.trim());
   };
 
-  
+  useEffect(() => {
+    firstTime.current
+      ? localStorage.setItem("favoriteCards", JSON.stringify(favoriteCards))
+      : (firstTime.current = true);
+  }, [favoriteCards]);
 
   const cardsStyle = {
     justifyContent: { xs: "center" },
@@ -202,7 +219,7 @@ function HomePage() {
                           handleDrag={handleDrag}
                           handleAddToFavorite={handleAddToFavorite}
                           handleDelete={handleDelete}
-                          deletedByList={deletedByList}
+                          favoriteCards={favoriteCards}
                           style={cardsStyle}
                           countryName={country.name.common}
                           countryCode={country.cca2}
