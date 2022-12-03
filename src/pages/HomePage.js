@@ -57,10 +57,10 @@ function HomePage() {
   const [cards, setCards] = useState([]);
   const [favoriteCards, setFavoriteCards] = useState([]);
   const [draggedName, setDargedName] = useState("");
-  const firstTime = useRef(false);
+  const initialRender = useRef(false);
 
   useEffect(() => {
-    if (!firstTime.current)
+    if (!initialRender.current)
       localStorage.getItem("favoriteCards")
         ? setFavoriteCards(JSON.parse(localStorage.getItem("favoriteCards")))
         : setFavoriteCards([]);
@@ -121,19 +121,17 @@ function HomePage() {
   const handleAddToFavorite = (name) => {
     let flag = false;
     favoriteCards.some((element) => {
-      if (element.name.common.toLowerCase() === name.toLowerCase()) {
-        flag = true;
-      }
+      if (element.name.common.toLowerCase() === name.toLowerCase()) flag = true;
     });
     if (!flag) {
       setFavoriteCards(
-          favoriteCards.concat(
-            countries.filter(
-              (country) =>
-                country.name.common.toLowerCase() === name.toLowerCase()
-            )
+        favoriteCards.concat(
+          countries.filter(
+            (country) =>
+              country.name.common.toLowerCase() === name.toLowerCase()
           )
-        );
+        )
+      );
     }
   };
 
@@ -146,9 +144,9 @@ function HomePage() {
   };
 
   useEffect(() => {
-    firstTime.current
+    initialRender.current
       ? localStorage.setItem("favoriteCards", JSON.stringify(favoriteCards))
-      : (firstTime.current = true);
+      : (initialRender.current = true);
   }, [favoriteCards]);
 
   const cardsStyle = {
