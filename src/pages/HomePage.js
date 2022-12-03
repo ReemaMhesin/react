@@ -51,161 +51,95 @@ const menuItems = [
 ];
 
 function HomePage() {
-  const [searchedFlag, setsearchedFlag] = useState("");
-  const [filteredFlag, setfilteredFlag] = useState("");
+  const [searchedValue, setsearchedValue] = useState("");
+  const [filteredValue, setfilteredValue] = useState("");
   const [countries, setCountries] = useState([]);
   const [cards, setCards] = useState([]);
-  const [image, setImage] = useState([]);
-  const [itemName, setName] = useState([]);
-  const [draggedName, setDargedName] = useState("");
-  const [draggedImg, setDragedImg] = useState("");
   const [favoriteCards, setFavoriteCards] = useState([]);
+  const [draggedName, setDargedName] = useState("");
+  const [deletedByList, setDeletedByList] = useState("");
 
   useEffect(() => {
     const getCountries = async () => {
       try {
-        const res = await fetch("https://restcountries.com/v3.1/all");
-        const data = await res.json();
-        setCards(data);
-        setCountries(data);
+        const res = searchedValue
+          ? await fetch(
+              `https://restcountries.com/v3.1/name/${searchedValue.toLowerCase()}`
+            )
+          : await fetch("https://restcountries.com/v3.1/all");
+
+        res.ok ? setCountries(await res.json()) : setCountries([]);
       } catch (error) {
         console.error(error);
       }
     };
-
     getCountries();
-  }, []);
+  }, [searchedValue]);
 
   useEffect(() => {
-    const getSearchedCards = async () => {
-      if (searchedFlag === "") {
-        setfilteredFlag(filteredFlag);
-      } else {
-        try {
-          const res = await fetch(
-            `https://restcountries.com/v3.1/name/${searchedFlag.toLowerCase()}`
-          );
-          const data = await res.json();
-          setCountries(data);
-        } catch (error) {
-          console.error(error);
-        }
-        if (filteredFlag.toLowerCase() === "no filter" || filteredFlag === "") {
-          setCards(countries);
-        } else {
-          setCards(
-            countries.filter(
+    const getCountries = () => {
+      setCards(
+        countries.length === 0
+          ? []
+          : filteredValue.toLowerCase() === "no filter" || filteredValue === ""
+          ? countries
+          : filteredValue.toLowerCase() === "favourites"
+          ? searchedValue
+            ? favoriteCards.filter(
+                (country) =>
+                  country.name.common.toLowerCase() === searchedValue.trim()
+              )
+            : favoriteCards
+          : countries.filter(
               (country) =>
-                country.region.toLowerCase() === filteredFlag.toLowerCase()
+                country.region.toLowerCase() === filteredValue.toLowerCase()
             )
-          );
-        }
-      }
-    };
-    getSearchedCards();
-  }, [searchedFlag, filteredFlag]);
-
-  useEffect(() => {
-    const getCountries = async () => {
-      if (searchedFlag === "") {
-        if (filteredFlag.toLowerCase() === "no filter" || filteredFlag === "") {
-          try {
-            const res = await fetch("https://restcountries.com/v3.1/all");
-            const data = await res.json();
-            setCards(data);
-            setCountries(data);
-          } catch (error) {
-            console.error(error);
-          }
-        } else if (filteredFlag.toLowerCase() === "favourites") {
-          setCards(favoriteCards);
-        } else {
-          setCards(
-            countries.filter(
-              (country) =>
-                country.region.toLowerCase() === filteredFlag.toLowerCase()
-            )
-          );
-        }
-      }
+      );
     };
     getCountries();
-  }, [filteredFlag, searchedFlag]);
+  }, [countries, filteredValue]);
 
   const handleSelect = (selectedItem) => {
-    setfilteredFlag(selectedItem);
+    setfilteredValue(selectedItem);
   };
 
   const handleSearch = (shearchedItem) => {
-    setsearchedFlag(shearchedItem);
+    setsearchedValue(shearchedItem);
   };
 
-  const handleAddToFavorite = (draggedName, draggedImg) => {
-    setName(itemName.concat(draggedName));
-    setImage(image.concat(draggedImg));
-
-    setFavoriteCards(
-      favoriteCards.concat(
-        countries.filter(
-          (country) =>
-            country.name.common.toLowerCase() === draggedName.toLowerCase()
-        )
-      )
-    );
-  };
-
-  const handleDrag = (draggedName, draggedImg) => {
+  const handleDrag = (draggedName) => {
     setDargedName(draggedName);
-    setDragedImg(draggedImg);
   };
+
   const handleDrop = () => {
-    setName(itemName.concat(draggedName));
-    setImage(image.concat(draggedImg));
-
-    setFavoriteCards(
-      favoriteCards.concat(
-        countries.filter(
-          (country) =>
-            country.name.common.toLowerCase() === draggedName.toLowerCase()
-        )
+    setFavoriteCards([...new Set( favoriteCards.concat(
+      countries.filter(
+        (country) =>
+          country.name.common.toLowerCase() === draggedName.toLowerCase()
       )
-    );
-
-    for (const item of document.querySelectorAll("#card")) {
-      const content = item.firstElementChild.firstElementChild
-        .getAttribute("alt")
-        .toLowerCase();
-
-      if (content.trim() === draggedName.trim()) {
-        item.firstElementChild.querySelector("#icon").style.color =
-          "rgb(237, 95, 30)";
-      }
-    }
+    ))]);
   };
-  const handleDelete = (name, img) => {
-    for (const item of document.querySelectorAll("#card")) {
-      const content = item.firstElementChild.firstElementChild
-        .getAttribute("alt")
-        .toLowerCase();
 
-      if (
-        content.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()
-      ) {
-        item.firstElementChild.querySelector("#icon").style.color = "lightgray";
-      }
-    }
+  const handleAddToFavorite = (name) => {
+    setFavoriteCards([...new Set( favoriteCards.concat(
+      countries.filter(
+        (country) =>
+          country.name.common.toLowerCase() === name.toLowerCase()
+      )
+    ))]);
+   
+  };
 
-    setName(
-      itemName.filter((item) => item.toLowerCase() !== name.toLowerCase())
-    );
-    setImage(image.filter((item) => item.toLowerCase() !== img.toLowerCase()));
-
+  const handleDelete = (name) => {
     setFavoriteCards(
       favoriteCards.filter(
         (country) => country.name.common.toLowerCase() !== name.toLowerCase()
       )
     );
+    setDeletedByList(name.trim());
   };
+
+  
 
   const cardsStyle = {
     justifyContent: { xs: "center" },
@@ -223,6 +157,7 @@ function HomePage() {
             <TextFeild
               placehoderValue="Search for a country..."
               handleSearch={handleSearch}
+              searchedValue={searchedValue}
             />
           </div>
           <div>
@@ -230,6 +165,7 @@ function HomePage() {
               items={menuItems}
               menuTopic="Filter by"
               handleSelect={handleSelect}
+              filteredValue={filteredValue}
             />
           </div>
         </ArrangmentBox>
@@ -246,11 +182,8 @@ function HomePage() {
             <Grid item xs={0} md={3} lg={3}>
               <ListComponent
                 handleDelete={handleDelete}
+                favoriteCards={favoriteCards}
                 handleDrop={handleDrop}
-                itemName={itemName}
-                itemImg={image}
-                deletedName={itemName}
-                deletedImg={image}
                 topic="Favorites"
                 sx={{ sm: { height: "100vh", overflow: "scroll" } }}
               />
@@ -266,9 +199,10 @@ function HomePage() {
                       >
                         <CountryCard
                           className="card"
-                          handleAddToFavorite={handleAddToFavorite}
                           handleDrag={handleDrag}
+                          handleAddToFavorite={handleAddToFavorite}
                           handleDelete={handleDelete}
+                          deletedByList={deletedByList}
                           style={cardsStyle}
                           countryName={country.name.common}
                           countryCode={country.cca2}

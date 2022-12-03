@@ -13,13 +13,7 @@ const Menuitem = styled(MenuItem)(() => ({
   fontWeight: "400",
 }));
 
-export default function SelectComponent({ items, menuTopic, handleSelect }) {
-  const [value, setValue] = React.useState("");
-
-  const handleChange = (event) => {
-    handleSelect(event.target.value);
-    setValue(event.target.value);
-  };
+export default function SelectComponent({ items, menuTopic, handleSelect,filteredValue }) {
 
   const values = items;
   const listItems = values.map((item) => (
@@ -27,6 +21,10 @@ export default function SelectComponent({ items, menuTopic, handleSelect }) {
       {item}
     </Menuitem>
   ));
+
+  const handleChange = (event) => {
+    handleSelect(event.target.value);
+  };
 
   return (
     <FormControl
@@ -41,7 +39,7 @@ export default function SelectComponent({ items, menuTopic, handleSelect }) {
         sx={{ backgroundColor: "white" }}
         labelId="demo-select-small"
         id="demo-select-small"
-        value={value}
+        value={filteredValue}
         label={menuTopic}
         onChange={handleChange}
         className="theme"

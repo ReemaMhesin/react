@@ -6,7 +6,7 @@ import Label from "../mainComponants/Label";
 import BasicButton from "../mainComponants/BasicButton";
 
 
-const MyBox = styled(Box)(
+const MyBox = styled("nav")(
   sx({
     display: "flex",
     justifyContent: "space-between",

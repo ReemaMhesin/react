@@ -23,11 +23,9 @@ const responsivePaper = {
   marginBottom: { xs: 5, md: 0 },
 };
 
-export default function TextFeild({ placehoderValue, handleSearch }) {
-  const [returnValue, setValue] = React.useState("");
+export default function TextFeild({ placehoderValue, handleSearch,searchedValue }) {
 
   const handleChange = async (event) => {
-    setValue(event.target.value);
     handleSearch(event.target.value);
   };
 
@@ -39,7 +37,7 @@ export default function TextFeild({ placehoderValue, handleSearch }) {
       <Outlinedinput
         labelId="search"
         id="search"
-        value={returnValue}
+        value={searchedValue}
         onChange={handleChange}
         startAdornment={
           <InputAdornment position="start">
