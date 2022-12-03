@@ -118,30 +118,23 @@ function HomePage() {
     setDargedName(draggedName);
   };
 
-  const handleDrop = () => {
-    setFavoriteCards([
-      ...new Set(
-        favoriteCards.concat(
-          countries.filter(
-            (country) =>
-              country.name.common.toLowerCase() === draggedName.toLowerCase()
-          )
-        )
-      ),
-    ]);
-  };
-
   const handleAddToFavorite = (name) => {
-    setFavoriteCards([
-      ...new Set(
-        favoriteCards.concat(
-          countries.filter(
-            (country) =>
-              country.name.common.toLowerCase() === name.toLowerCase()
+    let flag = false;
+    favoriteCards.some((element) => {
+      if (element.name.common.toLowerCase() === name.toLowerCase()) {
+        flag = true;
+      }
+    });
+    if (!flag) {
+      setFavoriteCards(
+          favoriteCards.concat(
+            countries.filter(
+              (country) =>
+                country.name.common.toLowerCase() === name.toLowerCase()
+            )
           )
-        )
-      ),
-    ]);
+        );
+    }
   };
 
   const handleDelete = (name) => {
@@ -200,7 +193,8 @@ function HomePage() {
               <ListComponent
                 handleDelete={handleDelete}
                 favoriteCards={favoriteCards}
-                handleDrop={handleDrop}
+                handleAddToFavorite={handleAddToFavorite}
+                draggedName={draggedName}
                 topic="Favorites"
                 sx={{ sm: { height: "100vh", overflow: "scroll" } }}
               />

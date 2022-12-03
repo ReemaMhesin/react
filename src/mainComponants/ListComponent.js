@@ -22,10 +22,10 @@ const ListHeader = styled(ListSubheader)(() => ({
 export default function ListComponent({
   topic,
   handleDelete,
-  handleDrop,
-  favoriteCards
+  handleAddToFavorite,
+  favoriteCards,
+  draggedName
 }) {
- 
   const [listItem, setItem] = useState([]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function ListComponent({
   function drop(event) {
     event.preventDefault();
     event.stopPropagation();
-   handleDrop();
+    handleAddToFavorite(draggedName);
   }
 
   const handledelete = (deletedName) => {
@@ -90,7 +90,7 @@ export default function ListComponent({
               <IconButton
                 color="primary"
                 component="label"
-                onClick={() =>handledelete(country.name.common)}
+                onClick={() => handledelete(country.name.common)}
               >
                 <HighlightOffIcon />
               </IconButton>
@@ -106,7 +106,10 @@ export default function ListComponent({
                   src={`${country.flags.svg}`}
                 />
               </ListItemAvatar>
-              <ListItemText id={country.name.common} primary={` ${country.name.common}`} />
+              <ListItemText
+                id={country.name.common}
+                primary={` ${country.name.common}`}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -114,12 +117,6 @@ export default function ListComponent({
     </Box>
   );
 }
-
-
-
-
-
-
 
 // import * as React from "react";
 // import Box from "@mui/material/Box";
